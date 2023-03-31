@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ck-table</title>
+    <link rel="stylesheet" href="./lib/ag-grid.css">
+    <link rel="stylesheet" href="./lib/ag-theme.css">
+    <link rel="stylesheet" href="./lib/select2.css">
+    <link rel="stylesheet" href="./src/index.css">
+    <script src="./lib/jquery.js"></script>
+    <script src="./lib/select2.min.js"></script>
+    <script src="./lib/ag-grid.min.js"></script>
+    <script src="./lib/init.js"></script>
+</head>
+<body>
+<div class="button-area" style="margin-bottom: 10px">
+    <button class="getSelectedRowsData">获取所有选中的数据</button>
+    <button class="addRows">批量新增行</button>
+    <button class="addRow">新增行</button>
+    <button class="insertRows">插入多行</button>
+    <button class="insertRow">插入行</button>
+    <button class="delRow">删除行</button>
+    <button class="getAllRows">获取所有行数据</button>
+</div>
+<div id="customer-ck-table" class="ag-theme-alpine" style="height: 800px"></div>
+<script src="./src/index.js"></script>
+<script>
+    (function() {
+        document.querySelector('.getSelectedRowsData').addEventListener('click', () => {
+            const selectedRows = myGridOptions.api.getSelectedRows()
+            alert('selectedRows:' + window.JSON.stringify(selectedRows))
+        },false)
+
+        document.querySelector('.addRow').addEventListener('click', () => {
+            const data = {a: '', b: ''}
+            myGridOptions.ck.addRow(data)
+        },false)
+
+        document.querySelector('.addRows').addEventListener('click', () => {
+            const data = [
+                {
+                    a: Math.random()*10,
+                    b: ''
+                },
+                {
+                    a: Math.random()*10,
+                    b: ''
+                },
+                {
+                    a: Math.random()*10,
+                    b: ''
+                },
+            ]
+            myGridOptions.ck.addRow(data)
+        },false)
+
+        document.querySelector('.insertRow').addEventListener('click', () => {
+            const data = {a: '插入一行', b: ''}
+            myGridOptions.ck.addRow(data, 0)
+        })
+
+        document.querySelector('.insertRows').addEventListener('click', () => {
+            const data = [
+                {
+                    a: '插入多行' + Math.random()*10,
+                    b: ''
+                },
+                {
+                    a: '插入多行' + Math.random()*10,
+                    b: ''
+                },
+                {
+                    a: '插入多行' + Math.random()*10,
+                    b: ''
+                },
+            ]
+            myGridOptions.ck.addRow(data, 1)
+        })
+
+        document.querySelector('.delRow').addEventListener('click', () => {
+            myGridOptions.ck.delRow()
+        })
+
+        document.querySelector('.getAllRows').addEventListener('click', () => {
+            console.log(myGridOptions.ck.getAllRows())
+        })
+    })(myGridOptions, window)
+</script>
+</body>
+</html>
